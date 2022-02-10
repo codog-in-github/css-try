@@ -1,6 +1,5 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { Template } = require('webpack');
 
 module.exports = {
     mode: 'development',
