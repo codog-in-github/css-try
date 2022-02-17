@@ -1,1 +1,3 @@
-import './index.less'
+import './common.less'
+// import './index.less'
+import './button.less'
