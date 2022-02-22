@@ -1,0 +1,47 @@
+article{
+    font-size: 20px;
+    line-height: 1.5em;
+    margin-bottom: 4em;
+
+    h1{
+        background-color: #005282;
+        color: #fff;
+        font-size: 70px;
+        padding-block: 1em;
+        line-height: 1.5em;
+        letter-spacing: 0.05em;
+    }
+
+    h2{
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+        font-size: 40px;
+        color: #005282;
+    }
+
+    h1,h2,p,ul{
+        padding-inline: 5rem;
+    }
+
+    p+p{
+        margin-top: 1em;
+    }
+
+    ul{
+        column-count: 3;
+        column-gap: 2em;
+    }
+
+    li{
+        margin-block: 0.5em;
+        list-style-type: none;
+
+        &::before{
+            content: '•';
+            color: #005282;
+            margin-right: 0.5em;
+            line-height: inherit;
+        }
+    }
+
+}
