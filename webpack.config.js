@@ -25,7 +25,10 @@ module.exports = {
                 test: /\.(?:le|c)ss$/,
                 use: [
                     isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    'css-loader',
+                    {
+                        loader:'css-loader',
+                        options: { esModule: false }
+                    },
                     'less-loader',
                 ]
             },
