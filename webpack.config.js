@@ -13,7 +13,7 @@ if(!isDevelopment){
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     entry: {
-        advtor: resolve(__dirname, 'src/avator.js')
+        avator: resolve(__dirname, 'src/avator.js')
     },
     output: {
         path: resolve(__dirname,'dist'),
