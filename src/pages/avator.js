@@ -1,6 +1,6 @@
-import './utils'
-import './style/index.less'
-import './style/avator.less'
+import '../utils'
+import '../style/index.less'
+import '../style/avator.less'
 
 const main = () => {
     const app = document.getElementById('app')
