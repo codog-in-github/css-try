@@ -1,0 +1,14 @@
+{
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "parser": "@babel/eslint-parser", // 这里配置解析器
+    "env":{
+        "browser": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+      ]
+  }

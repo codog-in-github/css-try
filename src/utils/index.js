@@ -1,4 +1,4 @@
-document.ready = function (callback) {
+export const ready = function (callback) {
     ///兼容FF,Google
     if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', function () {
@@ -17,5 +17,36 @@ document.ready = function (callback) {
     }
     else if (document.lastChild == document.body) {
         callback();
+    }
+}
+
+export const debounce = (func, delay = 500) => {
+    let timmer
+    return (...arg) => {
+        clearTimeout(timmer)
+        timmer = setTimeout(func, delay, ...arg)
+    }
+}
+
+export const throttle = (func, delay = 500) => {
+    let lock = false
+    return (...arg) => {
+        if (!lock) {
+            lock = true
+            setTimeout(() => {
+                func(...arg)
+                lock = false
+            }, delay)
+        }
+    }
+}
+
+export const once = (func) => {
+    let lock = false
+    return (...arg) => {
+        if(!lock) {
+            lock = true
+            func(...arg)
+        }
     }
 }

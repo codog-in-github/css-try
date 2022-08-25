@@ -1,0 +1,46 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.button{
+    display: inline-block;
+    cursor: pointer;
+    padding: 1em;
+    width: 5em;
+    text-align: center;
+    background-color: #347d39;
+    color: white;
+    border-radius: 0.5em;
+    box-shadow: 0 0.5em 0 #163318;
+    position: relative;
+    user-select: none;
+    top: 0;
+    transition: all 0.2s;
+
+    &:active{
+        filter: brightness(90%);
+        box-shadow: 0 0 0 #163318;
+        top: 0.5em;
+    }
+
+    &.disabled{
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: grayscale(50%);
+    }
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content{
+    color: red;
+    font-size: 160px;
+}

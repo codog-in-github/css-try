@@ -9,6 +9,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const { log } = require('./utils')
+const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 const isDevelopment = process.env.NODE_ENV === 'development'
 const { PUBLIC_PATH, BUILD_PATH } = process.env
 
@@ -34,7 +36,8 @@ plugins.push(
             '**/*',
             '!.git/**'
         ]
-    })
+    }),
+    new ESLintWebpackPlugin()
 )
 
 // 入口配置
@@ -43,6 +46,10 @@ const entry = {
 }
 
 for(const page of pages) {
+    if(!page.name) {
+        log.error('The [ name ] is required. Please check your [ page.config.js ]')
+        process.exit()
+    }
     const pagePath = resolve(__dirname, 'src/page', page.name)
     const entryJs = resolve(pagePath, 'main.js')
     const entryLess = resolve(pagePath, 'main.less')
@@ -51,10 +58,7 @@ for(const page of pages) {
     } else if(fs.existsSync(entryLess)){
         entry[page.name] = entryLess
     } else {
-        console.log(
-            require('chalk').bgRed(' Error '),
-            `Can not found file [ ${entryJs} ] or [ ${entryLess} ]`
-        )
+        log.error(`Can not found file [ main.js ] or [ main.less ] in at [ ${pagePath} ]`)
         process.exit()
     }
 }
@@ -75,6 +79,11 @@ module.exports = {
     output,
     module: {
         rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
             {
                 test: /\.(?:le|c)ss$/,
                 use: [
