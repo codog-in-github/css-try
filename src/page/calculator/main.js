@@ -12,19 +12,17 @@ class App extends React.Component {
             content: '',
             disabled: false,
         };
-        this.readyToBoom = once(this.readyToBoom.bind(this))
+        this.readToExplode = once(this.readToExplode.bind(this))
     }
     render () {
         return <div className="container">
-            <Button disabled={this.state.disabled} onClick={this.readyToBoom}>{this.state.count}</Button>
+            <Button disabled={this.state.disabled} onClick={this.readToExplode}>{this.state.count}</Button>
             <div className="content">{ this.state.content }</div>
         </div>;
     }
 
-    readyToBoom () {
-        this.setState({
-            disabled: true,
-        })
+    readToExplode () {
+        this.setState({ disabled: true })
         let count = 50
         let timmer = setInterval(() => {
             if(count === 0) {
@@ -36,7 +34,6 @@ class App extends React.Component {
             }
         }, 100)
     }
-    
 }
 
 const root = ReactDOM.createRoot(document.getElementById('app'));

@@ -3,19 +3,19 @@ const fs = require('fs')
 const DotEnv = require('dotenv')
 DotEnv.config({ path: '.env.local' })
 DotEnv.config()
-const pages = require('./pages.config')
+const pages = require('./pages.config.json')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const { log } = require('./utils')
+const { log } = require('./node-utils')
 const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 const isDevelopment = process.env.NODE_ENV === 'development'
 const { PUBLIC_PATH, BUILD_PATH } = process.env
 
 // 插件配置
-const plugins = pages.map(page => new HtmlWebpackPlugin({ 
+const plugins = pages.map(page => new HtmlWebpackPlugin({
     template: resolve(__dirname, `src/page/${page.name}/${page.template ?? 'template'}.html`),
     filename: page.name + '.html',
     chunks: ['common-style', 'common', page.name],
@@ -48,7 +48,7 @@ const entry = {
 for(const page of pages) {
     if(!page.name) {
         log.error('The [ name ] is required. Please check your [ page.config.js ]')
-        process.exit()
+        process.exit(1)
     }
     const pagePath = resolve(__dirname, 'src/page', page.name)
     const entryJs = resolve(pagePath, 'main.js')
@@ -58,8 +58,8 @@ for(const page of pages) {
     } else if(fs.existsSync(entryLess)){
         entry[page.name] = entryLess
     } else {
-        log.error(`Can not found file [ main.js ] or [ main.less ] in at [ ${pagePath} ]`)
-        process.exit()
+        log.error(`Can not found file [ main.js ] or [ main.less ] at [ ${pagePath} ]`)
+        process.exit(1)
     }
 }
 
@@ -106,7 +106,8 @@ module.exports = {
     plugins,
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'src')
+            '#': resolve(__dirname),
+            '@': resolve(__dirname, 'src'),
         }
     },
     optimization: {
