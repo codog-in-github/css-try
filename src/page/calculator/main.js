@@ -1,7 +1,8 @@
+import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { once } from '@/utils';
 import { Button } from './components/Button';
+import { Screen } from './components/Screen';
 import './style/index.less';
 
 class App extends React.Component {
@@ -12,27 +13,19 @@ class App extends React.Component {
             content: '',
             disabled: false,
         };
-        this.readToExplode = once(this.readToExplode.bind(this))
     }
     render () {
         return <div className="container">
-            <Button disabled={this.state.disabled} onClick={this.readToExplode}>{this.state.count}</Button>
-            <div className="content">{ this.state.content }</div>
+            <Screen text={this.state.content}></Screen>
+            <Button onClick={this.start}>{this.state.count}</Button>
         </div>;
     }
-
-    readToExplode () {
-        this.setState({ disabled: true })
-        let count = 50
-        let timmer = setInterval(() => {
-            if(count === 0) {
-                clearTimeout(timmer)
-                this.setState({ content: '你妈炸了',})
-            } else {
-                count --
-                this.setState({ count })
-            }
-        }, 100)
+    componentDidMount () {
+        setInterval(() => {
+            this.setState({
+                content: moment().format('HHmmss')
+            })
+        }, 1000)
     }
 }
 
