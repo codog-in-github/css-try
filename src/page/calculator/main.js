@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Button } from './components/Button';
@@ -10,7 +10,7 @@ class App extends React.Component {
         super();
         this.state = {
             count: '请按键',
-            content: '',
+            content: 'HELLO',
             disabled: false,
         };
     }
@@ -21,11 +21,14 @@ class App extends React.Component {
         </div>;
     }
     componentDidMount () {
+        let content = ' HELLO'
         setInterval(() => {
+            const firstLetter = content[0]
+            content =content.substring(1) + firstLetter
             this.setState({
-                content: moment().format('HHmmss')
+                content,
             })
-        }, 1000)
+        }, 500)
     }
 }
 

@@ -7,12 +7,12 @@ export class Screen extends React.Component {
         text: PropTypes.string
     }
     render() {
-        const numbers = Array(Screen.SRCEEN_MAX_LEN)
-        for(let i = 0; i < numbers.length; i++) {
+        const text = this.props.text
+        const len = Screen.SRCEEN_MAX_LEN
+        const numbers = Array(len)
+        for(let i = 0; i < len; i++) {
             numbers[i] = <Digital
-                number={this.props.text[
-                    this.props.text.length - Screen.SRCEEN_MAX_LEN + i
-                ] ?? ''}
+                number={text[text.length - len + i] ?? ''}
                 key={i}
             />
         }
@@ -21,30 +21,38 @@ export class Screen extends React.Component {
 }
 
 class Digital extends React.Component {
-    static TOP_MAP = [
-        ['0', '1', '2'],      //0
-        ['2'],                //1
-        ['1', '2', '3'],      //2
-        ['1', '2', '3'],      //3
-        ['0', '2', '3'],      //4
-        ['0', '1', '3'],      //5
-        ['0', '1', '3'],      //6
-        ['1', '2'],           //7
-        ['0', '1', '2', '3'], //8
-        ['0', '1', '2', '3'], //9
-    ]
-    static BOTTOM_MAP = [
-        ['0', '2', '3'],      //0
-        ['2'],                //1
-        ['0', '1', '3'],      //2
-        ['1', '2', '3'],      //3
-        ['1', '2'],           //4
-        ['1', '2', '3'],      //5
-        ['0', '1', '2', '3'], //6
-        ['2'],                //7
-        ['0', '1', '2', '3'], //8
-        ['1', '2', '3'],      //9
-    ]
+    static TOP_MAP =  {
+        0: [0, 1, 2],
+        1: [2],
+        2: [1, 2, 3],
+        3: [1, 2, 3],
+        4: [0, 2, 3],
+        5: [0, 1, 3],
+        6: [0, 1, 3],
+        7: [1, 2],
+        8: [0, 1, 2, 3],
+        9: [0, 1, 2, 3],
+        H: [0, 2, 3],
+        E: [0, 1, 3],
+        L: [0],
+        O: [0, 1, 2],
+    }
+    static BOTTOM_MAP = {
+        0: [0, 2, 3],
+        1: [2],
+        2: [0, 1, 3],
+        3: [1, 2, 3],
+        4: [1, 2],
+        5: [1, 2, 3],
+        6: [0, 1, 2, 3],
+        7: [2],
+        8: [0, 1, 2, 3],
+        9: [1, 2, 3],
+        H: [0, 1, 2],
+        E: [0, 1, 3],
+        L: [0, 3],
+        O: [0, 2, 3],
+    }
     static propTypes = {
         number: PropTypes.string
     }
