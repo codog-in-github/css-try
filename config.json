@@ -1,0 +1,10 @@
+{
+    "entry": [
+        "name": "main",
+        "ext": ["js", "less"]
+    ],
+    "template": {
+        "name": "template",
+        "ext": "html",
+    }
+}

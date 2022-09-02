@@ -13,10 +13,11 @@ const { log } = require('./node-utils')
 const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 const isDevelopment = process.env.NODE_ENV === 'development'
 const { PUBLIC_PATH, BUILD_PATH } = process.env
+const __root__ = __dirname
 
 // 插件配置
 const plugins = pages.map(page => new HtmlWebpackPlugin({
-    template: resolve(__dirname, `src/page/${page.name}/${page.template ?? 'template'}.html`),
+    template: resolve(__root__, `src/page/${page.name}/${page.template ?? 'template'}.html`),
     filename: page.name + '.html',
     chunks: ['common-style', 'common', page.name],
     templateParameters: {
@@ -42,7 +43,7 @@ plugins.push(
 
 // 入口配置
 const entry = {
-    'common-style': resolve(__dirname, `src/style/public.less`)
+    'common-style': resolve(__root__, `src/style/public.less`)
 }
 
 for(const page of pages) {
@@ -50,7 +51,7 @@ for(const page of pages) {
         log.error('The [ name ] is required. Please check your [ page.config.js ]')
         process.exit(1)
     }
-    const pagePath = resolve(__dirname, 'src/page', page.name)
+    const pagePath = resolve(__root__, 'src/page', page.name)
     const entryJs = resolve(pagePath, 'main.js')
     const entryLess = resolve(pagePath, 'main.less')
     if(fs.existsSync(entryJs)){
@@ -65,7 +66,7 @@ for(const page of pages) {
 
 // 输出配置
 const output =  {
-    path: resolve(__dirname, isDevelopment ? 'dist' : BUILD_PATH ),
+    path: resolve(__root__, isDevelopment ? 'dist' : BUILD_PATH ),
     filename: 'script/[id].[hash].js'
 }
 
@@ -106,8 +107,8 @@ module.exports = {
     plugins,
     resolve: {
         alias: {
-            '#': resolve(__dirname),
-            '@': resolve(__dirname, 'src'),
+            '#': resolve(__root__),
+            '@': resolve(__root__, 'src'),
         }
     },
     optimization: {
