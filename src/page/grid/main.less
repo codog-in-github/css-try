@@ -1,0 +1,39 @@
+*{
+    user-select: none;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    &-item{
+        height: 200px;
+        font-size: 90px;
+        text-align: center;
+        line-height: 200px;
+        color: #fff;
+        transform: rotateY(0);
+        position: relative;
+        transition: transform 1s;
+        cursor: pointer;
+
+        &-bg, &-content{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        &-bg{
+            z-index: 1;
+            background: green;
+        }
+        &-content{
+            z-index: 2;
+        }
+        
+        &:hover{
+            transform: rotateY(360deg);
+        }
+    }
+}

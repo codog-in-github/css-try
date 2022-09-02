@@ -1,5 +1,6 @@
 [
     { "name": "index", "title": "index"},
     { "name": "wkwk", "title": "wkwk"},
-    { "name": "calculator", "title": "计算器"}
+    { "name": "calculator", "title": "计算器"},
+    { "name": "grid", "title": "网格布局"}
 ]
